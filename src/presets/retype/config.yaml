@@ -1,0 +1,12 @@
+input: docs
+output: .retype
+branding:
+  favicon: favicon.ico
+  # title: TBD
+  # label: TBD
+links:
+  - icon: code
+    text: View On GitHub
+    # link: TBD
+footer:
+  copyright: '&copy; Copyright {{ year }}. All rights reserved.'

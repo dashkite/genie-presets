@@ -1,0 +1,27 @@
+{
+  "name": "@dashkite/genie-presets",
+  "version": "0.0.0",
+  "description": "Presets for common Genie build tasks",
+  "main": "src/index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dashkite/genie-presets.git"
+  },
+  "keywords": [],
+  "author": "Dan Yoder",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/dashkite/genie-presets/issues"
+  },
+  "homepage": "https://github.com/dashkite/genie-presets#readme",
+  "dependencies": {
+    "@dashkite/genie": "^0.1.0",
+    "@dashkite/joy": "^0.2.0",
+    "@dashkite/masonry": "^0.7.1",
+    "@dashkite/writeme": "file:../writeme",
+    "coffeescript": "^2.5.1"
+  }
+}
