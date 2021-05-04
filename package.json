@@ -1,6 +1,6 @@
 {
   "name": "@dashkite/genie-presets",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Presets for common Genie build tasks",
   "main": "src/index.coffee",
   "scripts": {
