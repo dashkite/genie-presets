@@ -4,9 +4,10 @@ Defines presets for the Genie task runner. Probably most useful for DashKite int
 
 The available presets are:
 
-- `coffeescript`: Builds CoffeeScript source and test code for node and import targets.
-- `writeme`: Builds YAML spec files into Markdown reference docs using WriteMe.
-- `retype`: Configures and runs Retype, publishing to GitHub pages.
+- *coffeescript*: Builds CoffeeScript source and test code for node and import targets.
+- *writeme*: Builds YAML spec files into Markdown reference docs using WriteMe.
+- *retype*: Configures and runs Retype, publishing to GitHub pages.
+- *release*: Builds, versions, and publishes a module.
 
 The tasks made available for each preset are described below.
 
@@ -20,11 +21,12 @@ import preset from "@dashkite/genie-presets"
 preset t, "coffeescript"
 preset t, "writeme"
 preset t, "retype"
+preset t, "release"
 ```
 
 ## coffeescript
 
-| Task Name  | Description                                                  |
+| Name       | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
 | build      | Builds source and test files from `src` and `test` directories into the `build` directory. Builds to two targets: `node` and `import`, to corresponding subdirectories. |
 | test       | Runs tests in `src/index.coffee` without building the source. |
@@ -35,11 +37,34 @@ preset t, "retype"
 
 ### Options
 
-The `coffeescript` preset currently takes no options.
+Currently takes no options.
+
+## release
+
+Usually what you want to run is something like:
+
+```bash
+version=patch genie release
+```
+
+which will run all the subtasks necessary to do a full release. But sometimes, for whatever reason, you want to do the steps manually, in which case, this preset also provides subtask definitions for convenience.
+
+**Important &rtri;** The **release** preset assumes that you have a build task defined (the *coffeescript* preset defines one, for example) and runs that before proceeding. However, at least in this version, you are responsible for making sure the tests pass before releasing.
+
+| Name            | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| release         | Does a patch release (build, version, publish, and push). Relies the `version` environment variable for the version (major, minor, patch, etc.) |
+| release:version | Versions the module: `npm version <level>`. Relies the `version` environment variable for the version (major, minor, patch, etc.) |
+| release:publish | Publishes to the NPM registry: `npm publish --access public`. |
+| release:push    | Pushes to git remote: `git push --follow-tags`.              |
+
+### Options
+
+- `version` - Arguments to pass to `npm version`.
 
 ## writeme
 
-| Task Name  | Description                                                  |
+| Name       | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
 | docs:build | Builds your Markdown files (into `docs/reference`) from your specs (`specs`). |
 | docs:watch | Watches the `specs` directory for changes and runs `docs:build` in response. |
@@ -47,11 +72,11 @@ The `coffeescript` preset currently takes no options.
 
 ### Options
 
-The `writeme` preset currently takes no options.
+Currently takes no options.
 
 ## retype
 
-| Task Name        | Description                                                  |
+| Name             | Description                                                  |
 | ---------------- | ------------------------------------------------------------ |
 | retype:configure | Sets up your Retype configuration for use locally and with GitHub pages. Requires the `RETYPE_LICENSE_KEY` environment variable be set. You will also need to add the license key to your GitHub secrets. |
 | site:build       | Builds the site with Retype into the `.retype` directory. (This directory should be added to your `.gitignore`.) |
@@ -59,4 +84,4 @@ The `writeme` preset currently takes no options.
 
 ### Options
 
-The `retype` preset currently takes no options.
+Currently takes no options.
