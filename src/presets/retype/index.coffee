@@ -60,11 +60,9 @@ export default (t) ->
         RETYPE_LICENSE_KEY to your repository secrets."
 
       console.info "Retype configuration complete"
-
     else
 
       console.error "Please specify the RETYPE_LICENSE_KEY environment variable"
-
 
   t.define "site:reference:page", ->
     await FS.mkdir "docs/reference", recursive: true

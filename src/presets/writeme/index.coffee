@@ -26,7 +26,7 @@ export default (t) ->
     m.read
     m.tr ({source, input}) ->
       data = YAML.load input
-      index[data.name] = "/reference/#{source.directory}/#{source.name}"
+      index[data.name] = "/reference/#{source.directory}/#{source.name}.md"
   ]
 
   t.define "docs:build", [ "docs:clean", "docs:index" ], m.start [
