@@ -5,7 +5,7 @@ import {coffee} from "@dashkite/masonry/coffee"
 
 export default (t) ->
 
-  t.define "clean", -> # m.rm "build"
+  t.define "clean", -> m.rm "build"
 
   t.define "build", "clean", m.start [
     m.glob [ "{src,test}/**/*.coffee" ], "."
@@ -22,19 +22,17 @@ export default (t) ->
     ]
   ]
 
-  t.define "node:test", [ "build" ], ->
+  t.define "dev:test", ->
+    require Path.join process.cwd(), "test"
+
+  t.define "test", "build", ->
     m.exec "node", [
       "--enable-source-maps"
       "./build/node/test/index.js"
     ]
 
-  t.define "test", [ "clean" ], ->
-    require Path.join process.cwd(), "test"
 
-  t.define "test:watch", ->
-    t.run "build"
-    m.watch "test", -> t.run "node:test"
-
-  t.define "watch", ->
+  t.define "watch", "build", ->
     t.run "build"
     m.watch "src", -> t.run "build"
+    m.watch "test", -> t.run "build"

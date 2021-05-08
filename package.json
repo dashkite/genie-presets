@@ -19,7 +19,7 @@
   "homepage": "https://github.com/dashkite/genie-presets#readme",
   "dependencies": {
     "@dashkite/genie": "^0.1.0",
-    "@dashkite/joy": "^0.2.4",
+    "@dashkite/joy": "^0.2.6",
     "@dashkite/masonry": "^0.7.1",
     "@dashkite/writeme": "^0.1.0",
     "coffeescript": "^2.5.1"

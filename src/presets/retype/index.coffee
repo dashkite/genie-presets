@@ -6,24 +6,22 @@ import * as m from "@dashkite/masonry"
 
 export default (t) ->
 
-  console.info "retype preset loading..."
-
   t.define "retype:configure", ->
 
     if key = process.env.RETYPE_LICENSE_KEY?
 
-      console.info "Reading package.json ..."
+      console.error "Reading package.json ..."
       pkg = JSON.parse await FS.readFile "package.json", "utf8"
       name = Path.basename process.cwd()
       title = _.capitalize name
       version = pkg.version
       link = _.replace /issues$/, "", pkg.bugs.url
 
-      console.info "Using: "
-      console.info "  name: ", name
-      console.info "  title: ", title
-      console.info "  version: ", version
-      console.info "  github: ", link
+      console.error "Using: "
+      console.error "  name: ", name
+      console.error "  title: ", title
+      console.error "  version: ", version
+      console.error "  github: ", link
 
       config = YAML.load await FS.readFile "#{__dirname}/config.yaml", "utf8"
       config.base = name
@@ -31,16 +29,16 @@ export default (t) ->
       config.branding.label = version
       config.links[0].link = link
 
-      console.info "Writing config to retype.json..."
+      console.error "Writing config to retype.json..."
       await FS.writeFile "retype.json",
         JSON.stringify config, null, 2
 
-      console.info "Writing config with license key to retype.local.json..."
+      console.error "Writing config with license key to retype.local.json..."
       config.license = process.env.RETYPE_LICENSE_KEY
       await FS.writeFile "retype.local.json",
         JSON.stringify config, null, 2
 
-      console.info "Updating .gitignore file..."
+      console.error "Updating .gitignore file..."
       ignored = _.split "\n", await FS.readFile ".gitignore", "utf8"
       update = false
       if ! ("retype.local.json" in ignored)
@@ -52,14 +50,14 @@ export default (t) ->
       if update
         await FS.writeFile ".gitignore", _.join "\n", ignored
 
-      console.info "Setting up GitHub workflow..."
+      console.error "Setting up GitHub workflow..."
       await FS.mkdir ".github/workflows", recursive: true
       await FS.copyFile "#{__dirname}/github/workflows/retype.yml",
         ".github/workflows/retype.yml"
-      console.info "GitHub workflow configured: remember to add
+      console.error "GitHub workflow configured: remember to add
         RETYPE_LICENSE_KEY to your repository secrets."
 
-      console.info "Retype configuration complete"
+      console.error "Retype configuration complete"
     else
 
       console.error "Please specify the RETYPE_LICENSE_KEY environment variable"

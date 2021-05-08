@@ -19,7 +19,7 @@ export default (t) ->
 
   t.define "release",
     [
-      "build"
+      "test"
       "release:version"
       "release:publish"
       "release:push"
