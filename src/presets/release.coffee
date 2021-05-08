@@ -9,7 +9,8 @@ export default (t) ->
       m.exec "npm", [ "version", version... ]
     else
       console.error "release:",
-        "Please specify the version environment variable."
+        "please specify the version environment variable."
+      process.exit 1
 
   t.define "release:publish", ->
     m.exec "npm", [ "publish", "--access", "public" ]

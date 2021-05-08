@@ -5,3 +5,4 @@ import preset from "../src"
 preset t, "*"
 
 t.define "build", ->
+t.define "test", ->
