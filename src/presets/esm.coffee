@@ -1,5 +1,6 @@
 import FS from "fs/promises"
 import * as _ from "@dashkite/joy"
+import { json } from "#helpers"
 
 exemplar =
   "main": "build/node/src/index.js",
@@ -21,7 +22,5 @@ exemplar =
 export default (t) ->
 
   t.define "esm:dual", ->
-    pkg = JSON.parse await FS.readFile "package.json", "utf8"
-    _pkg = _.merge pkg, exemplar
-    unless _.equal pkg, _pkg
-      FS.writeFile "package.json", JSON.stringify _pkg, null, 2
+    pkg = await json.read "package.json"
+    json.write "package.json", _.assign pkg, exemplar

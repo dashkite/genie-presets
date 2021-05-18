@@ -47,26 +47,28 @@ You can sometimes customize tasks by redefining subtasks.
 
 ### Options
 
-Currently takes no options.
+| Name    | Type  | Description                                          |
+| ------- | ----- | ---------------------------------------------------- |
+| targets | Array | List of targets. Defaults to `[ "node", "import" ]`. |
 
 ## release
 
 Usually what you want to run is something like:
 
 ```bash
-version=patch genie release
+genie release:patch
 ```
 
 which will run all the subtasks necessary to do a full release. But sometimes, for whatever reason, you want to do the steps manually, in which case, this preset also provides subtask definitions for convenience.
 
 **Important &rtri;** The *release* preset assumes that you have a `test` task defined (the *coffeescript* preset defines one, for example) and runs that before proceeding. That task should also perform a build, if necessary, and run tests against the build to ensure that the published code has been tested.
 
-|            Name | Description                                                  |
-| --------------: | ------------------------------------------------------------ |
-|         release | Does a patch release (test, version, publish, and push). Relies the `version` environment variable for the version (major, minor, patch, etc.) |
-| release:version | Versions the module: `npm version <level>`. Relies the `version` environment variable for the version (major, minor, patch, etc.) |
-| release:publish | Publishes to the NPM registry: `npm publish --access public`. |
-|    release:push | Pushes to git remote: `git push --follow-tags`.              |
+|                               Name | Description                                                  |
+| ---------------------------------: | ------------------------------------------------------------ |
+| release:**version**:**prerelease** | Does a patch release (test, version, publish, and push). Takes *version* and *prerelease* as arguments. Ex: `release:patch:alpha`. The *prerelease* argument is optional. |
+|       release:version:*prerelease* | Versions the module: `npm version <level>`. Takes *version* and *prerelease* as arguments. Ex: `release:patch:alpha`. The *prerelease* argument is optional. |
+|                    release:publish | Publishes to the NPM registry: `npm publish --access public`. |
+|                       release:push | Pushes to git remote: `git push --follow-tags`.              |
 
 ### Options
 
@@ -117,12 +119,14 @@ Currently takes no options.
 Currently takes no options.
 
 ## verify
-|                Name | Description                                                  |
-| ------------------: | ------------------------------------------------------------ |
-|              verify | Runs `verify:audit`, `verify:dependencies`, and `verify:license`. |
-|        verify:audit | Runs `npm audit`.                                            |
-| verify:dependencies | Runs `ncu`. You can install `ncu` by running `npm i -g npm-check-updates`. |
-|      verify:license | Checks to make sure a license file exists and there’s a license entry in `package.json`. |
+|                          Name | Description                                                  |
+| ----------------------------: | ------------------------------------------------------------ |
+|                        verify | Runs `verify:audit`, `verify:dependencies`, and `verify:license`. |
+|                  verify:audit | Runs `npm audit`.                                            |
+|           verify:dependencies | Runs `ncu`. You can install `ncu` by running `npm i -g npm-check-updates`. Runs `verify:dependencies:no-local` and `no-legacy` first. |
+|                verify:license | Checks to make sure a license file exists and there’s a license entry in `package.json`. |
+|  verify:dependencies:no-local | Checks for local dependencies (those starting with `file:`). |
+| verify:dependencies:no-legacy | Checks for legacy dependencies.                              |
 
 ### Options
 

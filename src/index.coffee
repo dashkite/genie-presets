@@ -5,6 +5,8 @@ import retype from "./presets/retype"
 import esm from "./presets/esm"
 import license from "./presets/license"
 import verify from "./presets/verify"
+import server from "./presets/server"
+import _presets from "./presets/presets"
 
 presets = {
   coffeescript
@@ -14,11 +16,14 @@ presets = {
   esm
   license
   verify
+  server
 }
 
-export default (tasks, name) ->
-  if name == "*"
-    for name, f of presets
-      f tasks
+export default (tasks, name, options) ->
+  _presets tasks
+  if name?
+    presets[name] tasks, options
   else
-    presets[name] tasks
+    if (tasks.get "presets")?
+      for name, options of tasks.get "presets"
+        presets[name]? tasks, options

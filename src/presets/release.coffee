@@ -3,13 +3,15 @@ import * as m from "@dashkite/masonry"
 
 export default (t) ->
 
-  t.define "release:version", ->
-    if process.env.version?
-      version = _.words process.env.version
-      m.exec "npm", [ "version", version... ]
+  t.define "release:version", (version, prerelease) ->
+    if version?
+      if prerelease?
+        m.exec "npm", [ "version", "pre#{version}", "--preid", prerelease  ]
+      else
+        m.exec "npm", [ "version", version  ]
     else
       console.error "release:",
-        "please specify the version environment variable."
+        "please specify the version, ex: `release:version:patch`."
       process.exit 1
 
   t.define "release:publish", ->
@@ -18,10 +20,15 @@ export default (t) ->
   t.define "release:push", ->
     m.exec "git", [ "push", "--follow-tags" ]
 
-  t.define "release",
-    [
-      "test"
-      "release:version"
+  t.define "release", "test", (version, prerelease) ->
+    t.run [
+      if version?
+        if prerelease?
+          "release:version:#{version}:#{prerelease}"
+        else
+          "release:version:#{version}"
+      else
+        "release:version"
       "release:publish"
       "release:push"
     ]
