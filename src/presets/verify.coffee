@@ -19,9 +19,7 @@ export default (t) ->
   t.define "verify:dependencies:no-legacy", ->
     {dependencies, devDependencies} = await json.read "package.json"
     result = _.intersection legacy, _.keys {dependencies..., devDependencies...}
-    if _.isEmpty result
-      console.log "no legacy dependencies found"
-    else
+    if !_.isEmpty result
       console.log "legacy dependencies found"
       console.log result
 
