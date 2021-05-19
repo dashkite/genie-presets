@@ -17,23 +17,22 @@ targets =
     m.write "build/import"
   ]
 
+mktargets = _.tee (cfg) ->
+  cfg.presets ?= {}
+  cfg.presets.coffeescript ?= {}
+  cfg.presets.coffeescript.targets ?= []
+
 export default (t, options) ->
 
   t.define "coffeescript:target:add", (name) ->
     cfg = await yaml.read "genie.yaml"
-    cfg.presets ?= {}
-    cfg.presets.coffeescript ?= {}
-    cfg.presets.coffeescript.targets ?= []
-    if !(name in cfg.presets.coffeescript.targets)
+    if !(name in mktargets cfg.presets.coffeescript.targets)
       cfg.presets.coffeescript.targets.push name
       yaml.write "genie.yaml", cfg
 
   t.define "coffeescript:target:remove", (name) ->
     cfg = await yaml.read "genie.yaml"
-    cfg.presets ?= {}
-    cfg.presets.coffeescript ?= {}
-    cfg.presets.coffeescript.targets ?= []
-    if (name in cfg.presets.coffeescript.targets)
+    if (name in mktargets cfg.presets.coffeescript.targets)
       _.remove name, cfg.presets.coffeescript.targets
       yaml.write "genie.yaml", cfg
 
