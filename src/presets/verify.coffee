@@ -10,18 +10,18 @@ legacy = [
   "panda-river"
   "panda-builder"
   "panda-9000"
+  "@dashkite/brick"
 ]
 export default (t) ->
 
-  t.define "verify:audit", ->
-    m.exec "npm", [ "audit" ]
+  t.define "verify:audit", m.exec "npm", [ "audit" ]
 
   t.define "verify:dependencies:no-legacy", ->
     {dependencies, devDependencies} = await json.read "package.json"
     result = _.intersection legacy, _.keys {dependencies..., devDependencies...}
     if !_.isEmpty result
       console.log "legacy dependencies found"
-      console.log result
+      console.log _.join ", ", Array.from result
 
   t.define "verify:dependencies:no-local", ->
     {dependencies, devDependencies} = await json.read "package.json"
@@ -32,8 +32,7 @@ export default (t) ->
   t.define "verify:dependencies", [
       "verify:dependencies:no-local"
       "verify:dependencies:no-legacy"
-    ], ->
-      m.exec "ncu", [ "--packageFile", "package.json" ]
+    ], m.exec "ncu", [ "--packageFile", "package.json" ]
 
   t.define "verify:license", ->
     {license} = await json.read "package.json"

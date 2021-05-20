@@ -5,6 +5,7 @@ import retype from "./presets/retype"
 import esm from "./presets/esm"
 import license from "./presets/license"
 import verify from "./presets/verify"
+import update from "./presets/update"
 import server from "./presets/server"
 import _presets from "./presets/presets"
 
@@ -16,6 +17,7 @@ presets = {
   esm
   license
   verify
+  update
   server
 }
 
