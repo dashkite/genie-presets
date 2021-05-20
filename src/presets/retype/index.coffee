@@ -67,4 +67,4 @@ export default (t) ->
     t.run "site:build"
     # TODO add lookup check to genie API
     try t.run "docs:watch"
-    m.exec "retype", [ "watch", "retype.local.json" ]
+    do m.exec "retype", [ "watch", "retype.local.json" ]
