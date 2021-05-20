@@ -26,17 +26,17 @@ export default (t, options) ->
 
   t.define "coffeescript:target:add", (name) ->
     cfg = await yaml.read "genie.yaml"
-    if !(name in mktargets cfg.presets.coffeescript.targets)
+    if !(name in (mktargets cfg).presets.coffeescript.targets)
       cfg.presets.coffeescript.targets.push name
       yaml.write "genie.yaml", cfg
 
   t.define "coffeescript:target:remove", (name) ->
     cfg = await yaml.read "genie.yaml"
-    if (name in mktargets cfg.presets.coffeescript.targets)
+    if (name in (mktargets cfg).presets.coffeescript.targets)
       _.remove name, cfg.presets.coffeescript.targets
       yaml.write "genie.yaml", cfg
 
-  t.define "clean", -> m.rm "build"
+  t.define "clean", m.rm "build"
 
   if !options?.targets?
     console.warn "genie-presets: coffeescript: no targets defined"
