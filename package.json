@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/dashkite/genie-presets#readme",
   "dependencies": {
-    "@dashkite/joy": "^0.3.0",
+    "@dashkite/joy": "^0.3.3",
     "@dashkite/masonry": "^0.10.3",
     "@dashkite/writeme": "^0.1.0",
     "coffeescript": "^2.5.1",
