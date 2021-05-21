@@ -17,8 +17,9 @@ export default (t) ->
 
   t.define "update:dependencies:audit", m.exec "npm", _.words "audit fix"
 
-  t.define "update:dependencies:ncu",
-    m.exec "ncu", _.words "-u --packageFile package.json"
+  t.define "update:dependencies:ncu", ->
+    await do m.exec "ncu", _.words "-u --packageFile package.json"
+    do m.exec "npm", [ "i" ]
 
   t.define "update:dependencies", [
     "update:dependencies:local"
