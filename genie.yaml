@@ -1,3 +1,4 @@
 presets:
   verify: null
   release: null
+  update: null
