@@ -10,6 +10,7 @@ read = (path) ->
 
 write = (path, updated) ->
   unless _.equal cache[path], updated
+    cache[path] = updated
     FS.writeFile path, YAML.dump updated
 
 yaml = { read, write }

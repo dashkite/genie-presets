@@ -1,26 +1,42 @@
-import FS from "fs/promises"
+import Path from "path"
 import * as _ from "@dashkite/joy"
 import { json } from "#helpers"
 
-exemplar =
-  "main": "build/node/src/index.js",
-  "exports": {
-    ".": {
-      "import": "./build/import/src/index.js",
-      "node": "./build/node/src/index.js"
-    },
-    "./*": {
-      "import": "./build/import/src/*.js",
-      "node": "./build/node/src/*.js"
-    }
-  },
-  "files": [
-    "build/import/src",
-    "build/node/src"
-  ]
+addExport = (glob, condition, path) ->
+  pkg = await json.read "package.json"
+  pkg.exports ?= {}
+  pkg.exports[ glob ] ?= {}
+  pkg.exports[ glob ][ condition ] ?= path
+  pkg.files ?= []
+  unless (Path.dirname path) in pkg.files
+    pkg.files.push Path.dirname path
+  json.write "package.json", pkg
+
+addIndex = (condition, path) ->
+  addExport ".", condition, path
+
+setMain = (path) ->
+  pkg = await json.read "package.json"
+  pkg.main = "build/node/src/index.js"
+  json.write "package.json", pkg
 
 export default (t) ->
 
-  t.define "esm:dual", ->
-    pkg = await json.read "package.json"
-    json.write "package.json", _.assign pkg, exemplar
+  t.define "esm:main", (target) ->
+    setMain "build/node/src/index.js"
+
+  t.define "esm:import", ->
+    addIndex "import", "./build/import/src/index.js"
+
+  t.define "esm:node", [ "esm:main:node" ], ->
+    addIndex "node", "./build/node/src/index.js"
+
+  t.define "esm:import:glob", ->
+    addExport "./*.js", "import", "./build/import/src/*.js"
+
+  t.define "esm:node:glob", ->
+    addExport "./*.js", "node", "./build/node/src/*.js"
+
+  t.define "esm:dual", [ "esm:import", "esm:node" ]
+
+  t.define "esm:dual:glob", [ "esm:import:glob", "esm:node:glob" ]
