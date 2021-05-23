@@ -100,9 +100,15 @@ Currently takes no options.
 
 ## esm
 
-|     Name | Description                                                |
-| -------: | ---------------------------------------------------------- |
-| esm:dual | Set up `node` and `import` targets in your `package.json`. |
+|            Name | Description                                                  |
+| --------------: | ------------------------------------------------------------ |
+|        esm:dual | Set up `node` and `import` targets in your `package.json`.   |
+|   esm:dual:glob | Set up `node` and `import` glob targets in your `package.json`. |
+|        esm:node | Set up `node` target in your `package.json`.                 |
+|      esm:import | Set up `import` target in your `package.json`.               |
+|   esm:node:glob | Set up `node` glob targets in your `package.json`.           |
+| esm:import:glob | Set up `import` glob targets in your `package.json`.         |
+|        esm:main | Set up `main` target in your `package.json`.                 |
 
 ### Options
 
