@@ -9,7 +9,8 @@ addExport = (glob, condition, path) ->
   pkg.exports[ glob ][ condition ] ?= path
   pkg.files ?= []
   unless (Path.dirname path) in pkg.files
-    pkg.files.push Path.dirname path
+    # we have to skip the ./ b/c that confuses npm
+    pkg.files.push Path.dirname path[2..]
   json.write "package.json", pkg
 
 addIndex = (condition, path) ->
