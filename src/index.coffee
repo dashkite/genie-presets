@@ -7,6 +7,7 @@ import license from "./presets/license"
 import verify from "./presets/verify"
 import update from "./presets/update"
 import server from "./presets/server"
+import pug from "./presets/pug"
 import _presets from "./presets/presets"
 
 presets = {
@@ -19,6 +20,7 @@ presets = {
   verify
   update
   server
+  pug
 }
 
 export default (tasks, name, options) ->
@@ -28,4 +30,5 @@ export default (tasks, name, options) ->
   else
     if (tasks.get "presets")?
       for name, options of tasks.get "presets"
+        console.log "loading preset #{name}"
         presets[name]? tasks, options
