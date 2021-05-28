@@ -30,5 +30,4 @@ export default (tasks, name, options) ->
   else
     if (tasks.get "presets")?
       for name, options of tasks.get "presets"
-        console.log "loading preset #{name}"
         presets[name]? tasks, options

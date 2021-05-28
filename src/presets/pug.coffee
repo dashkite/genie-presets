@@ -16,7 +16,7 @@ export default (t, options) ->
   t.define "pug:with-import-map", m.start [
     m.glob "{src,test}/**/*.pug", "."
     m.read
-    m.tr [ pug.render, atlas "." ]
+    m.tr [ pug.render, atlas ".", options?["import-map"] ]
     m.extension ".html"
     m.write "build/node"
   ]
