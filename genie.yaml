@@ -2,3 +2,7 @@ presets:
   verify: null
   release: null
   update: null
+  coffeescript:
+    targets:
+      - node
+  esm: null

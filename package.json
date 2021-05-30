@@ -2,30 +2,31 @@
   "name": "@dashkite/genie-presets",
   "version": "0.1.13",
   "description": "Presets for common Genie build tasks",
-  "main": "./src/index.coffee",
-  "scripts": {
-    "test": "genie test"
-  },
-  "exports": {
-    ".": "./src/index.coffee",
-    "./browse": "./src/helpers/browse.coffee"
-  },
-  "imports": {
-    "#helpers": "./src/helpers/index.coffee",
-    "#helpers/*": "./src/helpers/*.coffee"
+  "keywords": [],
+  "homepage": "https://github.com/dashkite/genie-presets#readme",
+  "bugs": {
+    "url": "https://github.com/dashkite/genie-presets/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dashkite/genie-presets.git"
   },
-  "keywords": [],
-  "author": "Dan Yoder",
   "license": "SEE LICENSE IN LICENSE.md",
-  "bugs": {
-    "url": "https://github.com/dashkite/genie-presets/issues"
+  "author": "Dan Yoder",
+  "imports": {
+    "#helpers": "./build/node/src/helpers/index.js",
+    "#helpers/*": "./build/node/src/helpers/*.js"
   },
-  "homepage": "https://github.com/dashkite/genie-presets#readme",
+  "exports": {
+    ".": "./build/node/src/index.js",
+    "./browse": "./build/node/src/helpers/browse.js"
+  },
+  "main": "build/node/src/index.js",
+  "scripts": {
+    "test": "genie test"
+  },
   "dependencies": {
+    "@dashkite/atlas": "file:../atlas",
     "@dashkite/joy": "^0.3.6",
     "@dashkite/masonry": "^0.10.8",
     "@dashkite/mimic": "^0.2.1",
