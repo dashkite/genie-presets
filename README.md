@@ -51,19 +51,46 @@ genie presets:add:esm
 
 ## coffeescript
 
-|     Name | Description                                                  |
-| -------: | ------------------------------------------------------------ |
-|    build | Builds source and test files from `src` and `test` directories into the `build` directory. Builds to two targets: `node` and `import`, to corresponding subdirectories. |
-|     test | Builds and run tests from the `build/` directory.            |
-| dev:test | Runs tests from `test/` directly without building the source. (This is sometimes helpful for complex builds, where the build is relatively slow.) |
-|    watch | Watch the `src/` and `test/` directory for changes and runs `build` in response. |
-|    clean | Remove the `build` directory.                                |
+|           Name | Description                                                  |
+| -------------: | ------------------------------------------------------------ |
+|          build | Builds source and test files from `src` and `test` directories into the `build` directory. Builds to two targets: `node` and `import`, to corresponding subdirectories. |
+|           test | Builds and run tests from the `build/` directory.            |
+|       dev:test | Runs tests from `test/` directly without building the source. (This is sometimes helpful for complex builds, where the build is relatively slow.) |
+|          watch | Watch the `src/` and `test/` directory for changes and runs `build` in response. |
+|          clean | Remove the `build` directory.                                |
+|    targets:add | Adds a target using the default configuration.               |
+| targets:remove | Removes a target.                                            |
 
 ### Options
 
-| Name    | Type  | Description                                          |
-| ------- | ----- | ---------------------------------------------------- |
-| targets | Array | List of targets. Defaults to `[ "node", "import" ]`. |
+| Name    | Type       | Description            |
+| ------- | ---------- | ---------------------- |
+| targets | dictionary | Target configurations. |
+
+Each target configuration consists of an array of build descriptions. Each build description specifies a glob, a preset name, corresponding to the presets of Masonry’s CoffeeScript extension, and an options object to pass to the Masonry preset.
+
+#### Example
+
+Default build for the `import` target:
+
+```yaml
+targets:
+  import:
+    # build from src to the browser
+	  - preset: import
+  		glob: src/**/*.coffee
+  	# build test client
+  	- preset: import
+  		glob: test/client/**/*.coffee
+  		options:
+  			mode: debug
+  	# build test driver
+  	- preset: node
+  		glob:
+  		- test/**/*.coffee
+  		- '!test/client/**/*.coffee'
+```
+
 
 ## release
 
@@ -77,12 +104,12 @@ which will run all the subtasks necessary to do a full release. But sometimes, f
 
 **Important &rtri;** The *release* preset assumes that you have a `test` task defined (the *coffeescript* preset defines one, for example) and runs that before proceeding. That task should also perform a build, if necessary, and run tests against the build to ensure that the published code has been tested.
 
-|                               Name | Description                                                  |
-| ---------------------------------: | ------------------------------------------------------------ |
-| release:**version**:**prerelease** | Does a patch release (test, version, publish, and push). Takes *version* and *prerelease* as arguments. Ex: `release:patch:alpha`. The *prerelease* argument is optional. |
-|       release:version:*prerelease* | Versions the module: `npm version <level>`. Takes *version* and *prerelease* as arguments. Ex: `release:patch:alpha`. The *prerelease* argument is optional. |
-|                    release:publish | Publishes to the NPM registry: `npm publish --access public`. |
-|                       release:push | Pushes to git remote: `git push --follow-tags`.              |
+|                      Name | Description                                                  |
+| ------------------------: | ------------------------------------------------------------ |
+|         release:<version> | Does a patch release (test, version, publish, and push). Takes *version* as arguments. Ex: `release:patch:alpha`. The *prerelease* argument is optional. |
+| release:version:<version> | Versions the module: `npm version <level>`. Version may be `major`, `minor`, `patch`, `alpha`, or `beta`. To start a new prerelease, use `major`, `minor`, or `patch` with `alpha` or `beta`. Ex: `minor-beta` or `patch-alpha`. |
+|           release:publish | Publishes to the NPM registry: `npm publish --access public`. |
+|              release:push | Pushes to git remote: `git push --follow-tags`.              |
 
 ### Options
 
