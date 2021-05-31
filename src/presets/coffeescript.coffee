@@ -3,8 +3,35 @@ import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
 import {coffee} from "@dashkite/masonry/coffee"
 import { yaml } from "#helpers"
+import deepMerge from "deepmerge"
 
-targets =
+defaults =
+  import:
+    presets:
+      coffeescript:
+        targets:
+          import: [
+              preset: "import"
+              glob: [ "src/**/*.coffee" ]
+            ,
+              preset: "import"
+              glob: [ "test/client/**/*.coffee" ]
+              options: mode: "debug"
+            ,
+              preset: "node"
+              glob: [ "test/**/*.coffee", "!test/client/**/*.coffee" ]
+          ]
+  node:
+    presets:
+      coffeescript:
+        targets:
+          node: [
+            preset: "node"
+            glob: [ "{src,test}/**/*.coffee" ]
+          ]
+
+
+builders =
 
   node: _.flow [
     m.tr coffee target: "node"
@@ -17,37 +44,31 @@ targets =
     m.write "build/import"
   ]
 
-mktargets = _.tee (cfg) ->
-  cfg.presets ?= {}
-  cfg.presets.coffeescript ?= {}
-  cfg.presets.coffeescript.targets ?= []
-
 export default (t, options) ->
 
-  t.define "coffeescript:target:add", (name) ->
+  t.define "coffeescript:targets:add", (name) ->
     cfg = await yaml.read "genie.yaml"
-    if !(name in (mktargets cfg).presets.coffeescript.targets)
-      cfg.presets.coffeescript.targets.push name
-      yaml.write "genie.yaml", cfg
+    cfg = deepMerge cfg, defaults[name]
+    yaml.write "genie.yaml", cfg
 
-  t.define "coffeescript:target:remove", (name) ->
+  t.define "coffeescript:targets:remove", (name) ->
     cfg = await yaml.read "genie.yaml"
-    if (name in (mktargets cfg).presets.coffeescript.targets)
-      _.remove name, cfg.presets.coffeescript.targets
+    if cfg.presets?.coffeescript?.targets?[name]?
+      delete cfg.presets.coffeescript.targets[name]
       yaml.write "genie.yaml", cfg
 
   t.define "clean", m.rm "build"
 
-  if !options?.targets?
-    console.warn "genie-presets: coffeescript: no targets defined"
-  else
-    fx = (targets[target] for target in options.targets)
-
-    t.define "build", "clean", m.start [
-      m.glob [ "{src,test}/**/*.coffee" ], "."
-      m.read
-      fx...
-    ]
+  t.define "build", "clean", ->
+    for target, builds of options.targets
+      for { preset, glob, options } in builds
+        await do m.start [
+          m.glob glob, "."
+          m.read
+          m.tr coffee { target: preset, options... }
+          m.extension ".js"
+          m.write "build/#{preset}"
+        ]
 
   t.define "dev:test", ->
     require Path.join process.cwd(), "test"

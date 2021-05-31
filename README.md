@@ -6,6 +6,7 @@ The available presets are:
 
 |         Name | Description                                                  |
 | -----------: | ------------------------------------------------------------ |
+|      presets | Presets for managing your presets.                           |
 | coffeescript | Builds CoffeeScript source and test code for node and import targets. |
 |      writeme | Builds YAML spec files into Markdown reference docs using WriteMe. |
 |       retype | Configures and runs Retype, publishing to GitHub pages.      |
@@ -13,6 +14,9 @@ The available presets are:
 |          esm | Set up package.json to use ESM modules.                      |
 |      license | Install a given license.                                     |
 |       verify | Make sure a module is ready for release.                     |
+|       update | Like verify, but tries to fix everything.                    |
+|          pug | Compile pug into HTML or JavaScript functions.               |
+|       server | Run a local server.                                          |
 
 To use a preset, just load it from your task file, passing in your Genie module.
 
@@ -27,13 +31,23 @@ preset t, "retype"
 preset t, "release"
 ```
 
-You can also just load them all as `*`:
+You can also specify them in `genie.yaml`, along with any applicable options.
 
-```coffeescript
-preset t, "*"
+```yaml
+presets:
+	coffeescript:
+		targets:
+			- import
+	verify: ~
+  update: ~
+	release: ~
 ```
 
-You can sometimes customize tasks by redefining subtasks.
+You can also use the built-in `presets` mixin to add or remove them:
+
+```sh
+genie presets:add:esm
+```
 
 ## coffeescript
 

@@ -14,14 +14,14 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Dan Yoder",
   "imports": {
-    "#helpers": "./build/node/src/helpers/index.js",
-    "#helpers/*": "./build/node/src/helpers/*.js"
+    "#helpers": "./build/src/helpers/index.js",
+    "#helpers/*": "./build/src/helpers/*.js"
   },
   "exports": {
-    ".": "./build/node/src/index.js",
-    "./browse": "./build/node/src/helpers/browse.js"
+    ".": "./build/src/index.js",
+    "./browse": "./build/src/helpers/browse.js"
   },
-  "main": "build/node/src/index.js",
+  "main": "build/src/index.js",
   "scripts": {
     "test": "genie test"
   },
@@ -32,6 +32,7 @@
     "@dashkite/mimic": "^0.2.2",
     "@dashkite/writeme": "^0.1.0",
     "coffeescript": "^2.5.1",
+    "deepmerge": "^4.2.2",
     "execa": "^5.0.1",
     "express": "^4.17.1",
     "express-static": "^1.2.6",
