@@ -13,6 +13,7 @@ export default (f) -> ->
   if cfg.presets?.browser?.logging == true
     app.use morgan "dev"
 
+  # TODO just use fallback? see server preset
   server = app
     .get "/", (request, response) ->
       response.sendFile Path.resolve "build/node/test/index.html"
