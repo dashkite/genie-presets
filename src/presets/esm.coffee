@@ -13,31 +13,29 @@ addExport = (glob, condition, path) ->
     pkg.files.push Path.dirname path[2..]
   json.write "package.json", pkg
 
-addIndex = (condition, path) ->
-  addExport ".", condition, path
-
-setMain = (path) ->
+set = (key, path) ->
   pkg = await json.read "package.json"
-  pkg.main = "build/node/src/index.js"
+  pkg[key] = path
   json.write "package.json", pkg
 
 export default (t) ->
 
-  t.define "esm:main", (target) ->
-    setMain "build/node/src/index.js"
+  t.define "esm:set", (key, target) ->
+    set key, "build/#{target}/src/index.js"
 
-  t.define "esm:import", ->
-    addIndex "import", "./build/import/src/index.js"
+  t.define "esm:index", (condition) ->
+    addExport ".", condition, "./build/#{condition}/src/index.js"
 
-  t.define "esm:node", [ "esm:main:node" ], ->
-    addIndex "node", "./build/node/src/index.js"
+  t.define "esm:glob", (condition) ->
+    addExport ".*", condition, "./build/#{condition}/src/*.js"
 
-  t.define "esm:import:glob", ->
-    addExport "./*.js", "import", "./build/import/src/*.js"
+  t.define "esm:reset", (condition) ->
+    pkg = await json.read "package.json"
+    delete pkg.main
+    delete pkg.module
+    delete pkg.browser
+    delete pkg["main:coffee"]
+    delete pkg.exports
+    json.write "package.json", pkg
 
-  t.define "esm:node:glob", ->
-    addExport "./*.js", "node", "./build/node/src/*.js"
-
-  t.define "esm:dual", [ "esm:import", "esm:node" ]
-
-  t.define "esm:dual:glob", [ "esm:import:glob", "esm:node:glob" ]
+  t.after "esm:index:node", "esm:set:main:node"
