@@ -8,6 +8,7 @@ import verify from "./presets/verify"
 import update from "./presets/update"
 import server from "./presets/server"
 import pug from "./presets/pug"
+import keywords from "./presets/keywords"
 import _presets from "./presets/presets"
 
 presets = {
@@ -21,6 +22,7 @@ presets = {
   update
   server
   pug
+  keywords
 }
 
 export default (tasks, name, options) ->
