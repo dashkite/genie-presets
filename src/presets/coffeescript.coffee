@@ -5,51 +5,40 @@ import {coffee} from "@dashkite/masonry/coffee"
 import { yaml } from "#helpers"
 import deepMerge from "deepmerge"
 
-defaults =
-  import:
-    presets:
-      coffeescript:
-        targets:
-          import: [
-              preset: "import"
-              glob: [ "src/**/*.coffee" ]
-            ,
-              preset: "import"
-              glob: [ "test/client/**/*.coffee" ]
-              options: mode: "debug"
-            ,
-              preset: "node"
-              glob: [ "test/**/*.coffee", "!test/client/**/*.coffee" ]
-          ]
-  node:
-    presets:
-      coffeescript:
-        targets:
-          node: [
-            preset: "node"
-            glob: [ "{src,test}/**/*.coffee" ]
-          ]
-
-
-builders =
-
-  node: _.flow [
-    m.tr coffee target: "node"
-    m.extension ".js"
-    m.write "build/node"
+_builds =
+  browser: [
+      preset: "browser"
+      glob: [ "src/**/*.coffee" ]
+    ,
+      preset: "browser"
+      glob: [ "test/client/**/*.coffee" ]
+      options: mode: "debug"
+    ,
+      preset: "node"
+      glob: [ "test/**/*.coffee", "!test/client/**/*.coffee" ]
   ]
-  import: _.flow [
-    m.tr coffee target: "import"
-    m.extension ".js"
-    m.write "build/import"
+
+  node: [
+    preset: "node"
+    glob: [ "{src,test}/**/*.coffee" ]
   ]
+
+# backward compatibility
+_builds.import = _builds.browser
+
+_defaults =
+  browser: presets: coffeescript: targets: browser: _builds.browser
+  node: presets: coffeescript: targets: node: _builds.node
 
 export default (t, options) ->
 
   t.define "coffeescript:targets:add", (name) ->
-    cfg = await yaml.read "genie.yaml"
-    cfg = deepMerge cfg, defaults[name]
-    yaml.write "genie.yaml", cfg
+    if _defaults[name]?
+      cfg = await yaml.read "genie.yaml"
+      cfg = deepMerge cfg, _defaults[name]
+      yaml.write "genie.yaml", cfg
+    else
+      throw new Error "uknown target: [#{name}]"
 
   t.define "coffeescript:targets:remove", (name) ->
     cfg = await yaml.read "genie.yaml"
@@ -60,12 +49,19 @@ export default (t, options) ->
   t.define "clean", m.rm "build"
 
   t.define "build", "clean", ->
-    for target, builds of options.targets
+    if _.isArray options.targets
+      targets = {}
+      for target in options.targets
+        targets[target] = _builds[target]
+    else
+      targets = options.targets
+
+    for target, builds of targets
       for { preset, glob, options } in builds
         await do m.start [
           m.glob glob, "."
           m.read
-          m.tr coffee { target: preset, options... }
+          m.tr coffee[preset] options ? {}
           m.extension ".js"
           m.write "build/#{preset}"
         ]
