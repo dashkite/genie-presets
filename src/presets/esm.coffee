@@ -36,6 +36,7 @@ export default (t) ->
     delete pkg.browser
     delete pkg["main:coffee"]
     delete pkg.exports
+    delete pkg.files
     json.write "package.json", pkg
 
   t.after "esm:index:node", "esm:set:main:node"
