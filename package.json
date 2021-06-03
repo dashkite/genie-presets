@@ -17,6 +17,10 @@
     "#helpers": "./build/node/src/helpers/index.js",
     "#helpers/*": "./build/node/src/helpers/*.js"
   },
+  "exports": {
+    ".": "./build/node/src/index.js",
+    "./browse": "./build/node/src/helpers/browse.js"
+  },
   "main": "build/node/src/index.js",
   "scripts": {
     "test": "genie test"
