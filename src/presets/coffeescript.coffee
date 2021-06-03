@@ -71,6 +71,8 @@ export default (t, options) ->
 
   t.define "test", "build", m.exec "node", [
     "--enable-source-maps"
+    "--trace-warnings"
+    "--unhandled-rejections=strict"
     "./build/node/test/index.js"
   ]
 

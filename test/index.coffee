@@ -1,7 +1,8 @@
 import assert from "assert"
 import {print, test} from "amen"
 import * as _ from "@dashkite/joy"
-import preset from "../src"
+# TODO /index must be explicit
+import preset from "../src/index"
 
 do ->
 

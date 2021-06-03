@@ -14,25 +14,23 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Dan Yoder",
   "imports": {
-    "#helpers": "./build/src/helpers/index.js",
-    "#helpers/*": "./build/src/helpers/*.js"
+    "#helpers": "./build/node/src/helpers/index.js",
+    "#helpers/*": "./build/node/src/helpers/*.js"
   },
-  "exports": {
-    ".": "./build/src/index.js",
-    "./browse": "./build/src/helpers/browse.js"
-  },
-  "main": "build/src/index.js",
+  "main": "build/node/src/index.js",
   "scripts": {
     "test": "genie test"
   },
   "dependencies": {
     "@dashkite/atlas": "^0.1.5",
     "@dashkite/joy": "^0.3.6",
+    "@dashkite/masonry": "^0.11.0",
     "@dashkite/mimic": "^0.2.2",
     "@dashkite/writeme": "^0.1.0",
+    "chalk": "^4.1.1",
     "coffeescript": "^2.5.1",
     "deepmerge": "^4.2.2",
-    "execa": "^5.0.1",
+    "execa": "^5.1.0",
     "express": "^4.17.1",
     "express-static": "^1.2.6",
     "js-yaml": "^4.1.0",
@@ -41,10 +39,9 @@
     "sort-package-json": "^1.50.0"
   },
   "devDependencies": {
-    "@dashkite/genie": "^0.4.1",
-    "@dashkite/masonry": "file:../masonry",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
     "amen": "^3.0.0",
-    "babel-plugin-add-import-extension": "^1.5.1",
-    "babel-plugin-autocomplete-index": "^0.2.0"
+    "babel-plugin-add-import-extension": "^1.5.1"
   }
 }
