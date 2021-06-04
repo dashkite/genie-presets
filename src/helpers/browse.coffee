@@ -7,19 +7,18 @@ import { yaml } from "#helpers"
 
 export default (f) -> ->
 
+  cfg = await yaml.read "genie.yaml"
+  options = cfg.presets?.browser ? {}
+
   app = express()
 
-  cfg = await yaml.read "genie.yaml"
-  if cfg.presets?.browser?.logging == true
+  if options.logging == true
     app.use morgan "dev"
 
-  # TODO just use fallback? see server preset
-  server = app
-    .get "/", (request, response) ->
-      response.sendFile Path.resolve "build/node/test/index.html"
-    .use files "."
-    .listen()
-
+  app.use express.static options.directory, options.static
+  app.get "*",
+    (request, response) -> response.sendFile Path.resolve options.fallback
+  server = app.listen port: port ? options.port
   {port} = server.address()
 
   browser = await m.connect()
