@@ -15,9 +15,12 @@ export default (f) -> ->
   if options.logging == true
     app.use morgan "dev"
 
-  app.use express.static options.directory, options.static
-  app.get "*",
-    (request, response) -> response.sendFile Path.resolve options.fallback
+  app.use express.static (options.directory ? "."), (options.static ? {})
+
+  if options.fallback?
+    app.get "*",
+      (request, response) -> response.sendFile Path.resolve options.fallback
+
   server = app.listen port: port ? options.port
   {port} = server.address()
 
