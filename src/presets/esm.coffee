@@ -27,7 +27,7 @@ export default (t) ->
     addExport ".", condition, "./build/#{condition}/src/index.js"
 
   t.define "esm:glob", (condition) ->
-    addExport ".*", condition, "./build/#{condition}/src/*.js"
+    addExport "./*", condition, "./build/#{condition}/src/*.js"
 
   t.define "esm:reset", (condition) ->
     pkg = await json.read "package.json"

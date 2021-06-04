@@ -1,3 +1,4 @@
+import Path from "path"
 import * as _ from "@dashkite/joy"
 import express from "express"
 import morgan from "morgan"
@@ -24,7 +25,8 @@ export default (genie, options) ->
     app = express()
     app.use morgan "dev"
     app.use express.static options.directory, options.static
-    app.get "*", (request, response) -> response.sendFile options.fallback
+    app.get "*",
+      (request, response) -> response.sendFile Path.resolve options.fallback
     server = app.listen port: port ? options.port
     {port} = server.address()
     console.log "server:app:", "listening on port #{port}"

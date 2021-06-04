@@ -10,7 +10,7 @@ export default (t, options) ->
     m.read
     m.tr pug.render
     m.extension ".html"
-    m.write "build/node"
+    m.write "build/browser"
   ]
 
   t.define "pug:with-import-map", m.start [
@@ -18,5 +18,5 @@ export default (t, options) ->
     m.read
     m.tr [ pug.render, atlas ".", options?["import-map"] ]
     m.extension ".html"
-    m.write "build/node"
+    m.write "build/browser"
   ]
