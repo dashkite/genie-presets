@@ -2,21 +2,74 @@ import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
 import { pug } from "@dashkite/masonry/pug"
 import { atlas } from "@dashkite/masonry/atlas"
+import { yaml } from "#helpers"
+import deepMerge from "deepmerge"
 
-export default (t, options) ->
+renderDocument = ({glob, target, map}) ->
+  do m.start [
+    m.glob glob, "."
+    m.read
+    m.tr [ pug.render, atlas ".", map ]
+    m.extension ".html"
+    m.write "build/#{target}"
+  ]
 
-  t.define "pug", m.start [
-    m.glob "{src,test}/**/*.pug", "."
+renderFragment = ({glob, target}) ->
+  do m.start [
+    m.glob glob, "."
     m.read
     m.tr pug.render
     m.extension ".html"
-    m.write "build/browser"
+    m.write "build/#{target}"
   ]
 
-  t.define "pug:with-import-map", m.start [
-    m.glob "{src,test}/**/*.pug", "."
+compileFragment = ({glob, target}) ->
+  do m.start [
+    m.glob glob, "."
     m.read
-    m.tr [ pug.render, atlas ".", options?["import-map"] ]
-    m.extension ".html"
-    m.write "build/browser"
+    m.tr pug.compile
+    m.extension ".js"
+    m.write "build/#{target}"
   ]
+
+export default (t, _options) ->
+
+  t.define "pug", ->
+
+    for target, builds of _options.targets
+      for { preset, glob, options, document } in builds
+        target = options?.target ? "browser"
+        if preset == "render"
+          if document == true
+            map = options?["import-map"]
+            renderDocument { glob, target, map }
+          else
+            renderFragment { glob, target }
+        else
+          compileFragment { glob, target }
+
+  t.after "build", "pug"
+
+  t.define "pug:setup", ->
+    cfg = await yaml.read "genie.yaml"
+
+    cfg = deepMerge cfg,
+      presets:
+        server:
+          logging: false
+          fallback: "./build/browser/src/index.html"
+        pug:
+          targets:
+            app: [
+              preset: "render"
+              glob: "src/index.pug"
+              document: true
+            ,
+              preset: "compile"
+              glob: [
+                "src/**/*.pug"
+                "!src/index.pug"
+              ]
+            ]
+
+    yaml.write "genie.yaml", cfg

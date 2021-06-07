@@ -3,7 +3,7 @@ import FS from "fs/promises"
 import YAML from "js-yaml"
 import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
-import { json, yaml, lines } from "#helpers"
+import { json, yaml, lines, ref } from "#helpers"
 
 export default (t) ->
 
@@ -23,7 +23,7 @@ export default (t) ->
       console.error "  version: ", version
       console.error "  github: ", link
 
-      config = await yaml.read "#{__dirname}/config.yaml"
+      config = await yaml.read ref "config.yaml"
       config.base = name
       config.branding.title = title
       config.branding.label = version
@@ -44,7 +44,7 @@ export default (t) ->
 
       console.error "Setting up GitHub workflow..."
       await FS.mkdir ".github/workflows", recursive: true
-      await FS.copyFile "#{__dirname}/github/workflows/retype.yml",
+      await FS.copyFile (ref "retype/github/workflows/retype.yml"),
         ".github/workflows/retype.yml"
       console.error "GitHub workflow configured: remember to add
         RETYPE_LICENSE_KEY to your repository secrets."

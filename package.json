@@ -21,6 +21,10 @@
     ".": "./build/node/src/index.js",
     "./browse": "./build/node/src/helpers/browse.js"
   },
+  "files": [
+    "build/node/src",
+    "ref"
+  ],
   "main": "build/node/src/index.js",
   "scripts": {
     "test": "genie test"

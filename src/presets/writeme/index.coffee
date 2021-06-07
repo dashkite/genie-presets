@@ -17,7 +17,7 @@ export default (t) ->
 
   t.define "docs:clean", ->
     await FS.rm "docs/reference", recursive: true, force: true
-    index = await yaml.read "#{__dirname}/index.yaml", "utf8"
+    index = await yaml.read ref "writeme/index.yaml", "utf8"
     if await isFile "docs/references.yaml"
       _.assign index,
         await yaml.read "docs/references.yaml"

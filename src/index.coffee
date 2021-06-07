@@ -7,6 +7,7 @@ import license from "./presets/license"
 import verify from "./presets/verify"
 import update from "./presets/update"
 import server from "./presets/server"
+import browser from "./presets/browser"
 import pug from "./presets/pug"
 import keywords from "./presets/keywords"
 import _presets from "./presets/presets"
@@ -21,6 +22,7 @@ presets = {
   verify
   update
   server
+  browser
   pug
   keywords
 }
