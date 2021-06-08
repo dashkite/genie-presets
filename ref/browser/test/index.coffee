@@ -3,7 +3,7 @@ import print from "@dashkite/amen-console"
 
 import * as k from "@dashkite/katana"
 import * as m from "@dashkite/mimic"
-import browse from "@dashkite/genie-presets/browse"
+import browse from "@dashkite/genie-presets/browser"
 
 do browse ({browser, port}) ->
 

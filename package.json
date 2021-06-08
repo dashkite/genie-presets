@@ -19,7 +19,7 @@
   },
   "exports": {
     ".": "./build/node/src/index.js",
-    "./browse": "./build/node/src/helpers/browse.js"
+    "./*": "./build/node/src/helpers/*.js"
   },
   "files": [
     "build/node/src",

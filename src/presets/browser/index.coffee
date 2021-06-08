@@ -25,9 +25,10 @@ export default (genie, options) ->
               preset: "render"
               glob: "test/client/index.pug"
               document: true
-              "import-map":
-                "@dashkite/amen": "latest"
-                "@dashkite/assert": "latest"
+              options:
+                "import-map":
+                  "@dashkite/amen": "latest"
+                  "@dashkite/assert": "latest"
             ]
     yaml.write "genie.yaml", cfg
 
@@ -35,6 +36,7 @@ export default (genie, options) ->
     "i"
     "-D"
     "@dashkite/amen@latest"
+    "@dashkite/amen-console@latest"
     "@dashkite/assert@latest"
     "@dashkite/mimic@latest"
     "@dashkite/katana@latest"
