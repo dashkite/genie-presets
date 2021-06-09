@@ -55,16 +55,16 @@ export default (t, options) ->
         targets[target] = _builds[target]
     else
       targets = options.targets
-
-    for target, builds of targets
-      for { preset, glob, options } in builds
-        await do m.start [
-          m.glob glob, "."
-          m.read
-          m.tr coffee[preset] options ? {}
-          m.extension ".js"
-          m.write "build/#{preset}"
-        ]
+    do (options = undefined) ->
+      for target, builds of targets
+        for { preset, glob, options } in builds
+          await do m.start [
+            m.glob glob, "."
+            m.read
+            m.tr coffee[preset] options ? {}
+            m.extension ".js"
+            m.write "build/#{preset}"
+          ]
 
   t.define "dev:test", ->
     require Path.join process.cwd(), "test"
