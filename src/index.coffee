@@ -9,6 +9,7 @@ import update from "./presets/update"
 import server from "./presets/server"
 import browser from "./presets/browser"
 import pug from "./presets/pug"
+import stylus from "./presets/stylus"
 import keywords from "./presets/keywords"
 import _presets from "./presets/presets"
 
@@ -24,6 +25,7 @@ presets = {
   server
   browser
   pug
+  stylus
   keywords
 }
 
