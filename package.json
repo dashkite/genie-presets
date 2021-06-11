@@ -43,8 +43,9 @@
     "express-static": "^1.2.6",
     "js-yaml": "^4.1.0",
     "morgan": "^1.10.0",
-    "rake-js": "^0.1.1",
-    "sort-package-json": "^1.50.0"
+    "sort-package-json": "^1.50.0",
+    "svgo": "^2.3.0",
+    "svgstore": "^3.0.0-2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

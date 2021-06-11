@@ -3,7 +3,7 @@ import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
 import * as writeme from "@dashkite/writeme"
 import YAML from "js-yaml"
-import { yaml } from "#helpers"
+import { ref, yaml } from "#helpers"
 
 isFile = (path) ->
   try
@@ -17,7 +17,7 @@ export default (t) ->
 
   t.define "docs:clean", ->
     await FS.rm "docs/reference", recursive: true, force: true
-    index = await yaml.read ref "writeme/index.yaml", "utf8"
+    index = await yaml.read ref "writeme/index.yaml"
     if await isFile "docs/references.yaml"
       _.assign index,
         await yaml.read "docs/references.yaml"
