@@ -24,8 +24,11 @@ export default (genie, options) ->
   genie.define "server:app", (port) ->
     app = express()
     app.use morgan "dev"
+    if options.esm?
+      app.get "*.js", express.static options.esm.directory,
+        { options.esm.static..., redirect: false }
     app.use express.static options.directory, options.static
-    app.get "*",
+    app.get /^[^\.]+$/,
       (request, response) -> response.sendFile Path.resolve options.fallback
     server = app.listen port: port ? options.port
     {port} = server.address()

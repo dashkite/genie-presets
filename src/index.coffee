@@ -10,7 +10,7 @@ import server from "./presets/server"
 import browser from "./presets/browser"
 import pug from "./presets/pug"
 import stylus from "./presets/stylus"
-import sprites from "./presets/sprites"
+import media from "./presets/media"
 import _presets from "./presets/presets"
 
 presets = {
@@ -26,7 +26,7 @@ presets = {
   browser
   pug
   stylus
-  sprites
+  media
 }
 
 export default (tasks, name, options) ->
