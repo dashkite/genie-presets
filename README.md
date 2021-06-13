@@ -7,16 +7,20 @@ The available presets are:
 |         Name | Description                                                  |
 | -----------: | ------------------------------------------------------------ |
 |      presets | Presets for managing your presets.                           |
-| coffeescript | Builds CoffeeScript source and test code for node and import targets. |
-|      writeme | Builds YAML spec files into Markdown reference docs using WriteMe. |
-|       retype | Configures and runs Retype, publishing to GitHub pages.      |
+|       verify | Make sure a module is ready for release.                     |
+|       update | Like verify, but tries to fix everything.                    |
 |      release | Builds, versions, and publishes a module.                    |
 |          esm | Set up package.json to use ESM modules.                      |
 |      license | Install a given license.                                     |
-|       verify | Make sure a module is ready for release.                     |
-|       update | Like verify, but tries to fix everything.                    |
-|          pug | Compile pug into HTML or JavaScript functions.               |
 |       server | Run a local server.                                          |
+|      browser | Run a local server and connect a puppeteer instance to it for automed tests. |
+| coffeescript | Builds CoffeeScript source and test code for node and import targets. |
+|          pug | Compile pug into HTML or JavaScript functions.               |
+|       stylus | Compile Stylus into CSS or a JavaScript module.              |
+|         yaml | Compile YAML into JSON or a JavaScript module.               |
+|        media | Compile media assets for use in Web apps or Web Components.  |
+|      writeme | Builds YAML spec files into Markdown reference docs using WriteMe. |
+|       retype | Configures and runs Retype, publishing to GitHub pages.      |
 
 To use a preset, just load it from your task file, passing in your Genie module.
 
@@ -178,4 +182,20 @@ Currently takes no options.
 ### Options
 
 Currently takes no options.
+
+## pug
+
+Coming soon.
+
+## stylus
+
+Coming soon.
+
+## media
+
+Coming soon.
+
+## yaml
+
+Coming soon.
 
