@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+rm -rf build
+npx coffee --compile --transpile --inline-map --output build/node/src src
+npx coffee --compile --transpile --inline-map --output build/node/test test

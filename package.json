@@ -32,7 +32,6 @@
   "dependencies": {
     "@dashkite/atlas": "^0.2.0",
     "@dashkite/joy": "^0.3.10",
-    "@dashkite/masonry": "^0.11.8",
     "@dashkite/mimic": "^0.2.3",
     "@dashkite/writeme": "^0.1.0",
     "chalk": "^4.1.1",
@@ -50,6 +49,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-env": "^7.14.5",
+    "@dashkite/masonry": "file:../masonry",
     "amen": "^3.0.0",
     "babel-plugin-add-import-extension": "^1.5.1"
   }
