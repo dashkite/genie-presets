@@ -35,18 +35,20 @@ compileFragment = ({glob, target}) ->
 export default (t, _options) ->
 
   t.define "pug", ->
-
-    for target, builds of _options.targets
-      for { preset, glob, options, document } in builds
-        target = options?.target ? "browser"
-        if preset == "render"
-          if document == true
-            map = options?["import-map"]
-            renderDocument { glob, target, map }
-          else
-            renderFragment { glob, target }
-        else
-          compileFragment { glob, target }
+    # feels like we should be able to flatten this with flow/map
+    Promise.all do ->
+      for target, builds of _options.targets
+        Promise.all do ->
+          for { preset, glob, options, document } in builds
+            target = options?.target ? "browser"
+            if preset == "render"
+              if document == true
+                map = options?["import-map"]
+                renderDocument { glob, target, map }
+              else
+                renderFragment { glob, target }
+            else
+              compileFragment { glob, target }
 
   t.after "build", "pug"
 
