@@ -34,7 +34,7 @@
     "@dashkite/joy": "^0.3.11",
     "@dashkite/masonry": "^0.11.9",
     "@dashkite/mimic": "^0.2.3",
-    "@dashkite/writeme": "^0.1.0",
+    "@dashkite/writeme": "^0.2.0",
     "chalk": "^4.1.1",
     "coffeescript": "^2.5.1",
     "deepmerge": "^4.2.2",
