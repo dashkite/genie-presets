@@ -40,5 +40,4 @@ export default (t) ->
     ]
   ]
 
-  t.define "docs:watch", ->
-    m.watch "specs", -> t.run "docs:build"
+  t.define "docs:watch", m.watch "specs", -> t.run "docs:build"
