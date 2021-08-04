@@ -30,12 +30,12 @@
     "test": "genie test"
   },
   "dependencies": {
-    "@dashkite/atlas": "^0.3.0",
+    "@dashkite/atlas": "^0.4.0",
     "@dashkite/joy": "^0.3.11",
     "@dashkite/masonry": "^0.11.11",
     "@dashkite/mimic": "^0.2.3",
-    "@dashkite/writeme": "^0.1.0",
-    "chalk": "^4.1.1",
+    "@dashkite/writeme": "^0.2.0",
+    "chalk": "^4.1.2",
     "coffeescript": "^2.5.1",
     "deepmerge": "^4.2.2",
     "execa": "^5.1.1",
@@ -48,8 +48,8 @@
     "svgstore": "^3.0.0-2"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.9",
     "amen": "^3.0.0",
     "babel-plugin-add-import-extension": "^1.6.0"
   }
