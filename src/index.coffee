@@ -12,6 +12,7 @@ import pug from "./presets/pug"
 import stylus from "./presets/stylus"
 import media from "./presets/media"
 import _presets from "./presets/presets"
+import yaml from "./presets/yaml"
 
 presets = {
   coffeescript
@@ -27,6 +28,7 @@ presets = {
   pug
   stylus
   media
+  yaml
 }
 
 export default (tasks, name, options) ->
