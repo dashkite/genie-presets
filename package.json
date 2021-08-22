@@ -44,12 +44,12 @@
     "js-yaml": "^4.1.0",
     "morgan": "^1.10.0",
     "sort-package-json": "^1.50.0",
-    "svgo": "^2.3.1",
+    "svgo": "^2.4.0",
     "svgstore": "^3.0.0-2"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.8",
-    "@babel/preset-env": "^7.14.9",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
     "amen": "^3.0.0",
     "babel-plugin-add-import-extension": "^1.6.0"
   }
