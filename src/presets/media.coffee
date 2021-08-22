@@ -8,6 +8,7 @@ import { yaml } from "#helpers"
 
 export default (t, options) ->
 
+  options ?= {}
   options.glob ?= "{src,test}/**/*.{jpg,gif,png,pdf,ico,svg,webp}"
   options.target ?= "build/browser"
 
