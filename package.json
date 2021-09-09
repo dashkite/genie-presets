@@ -1,6 +1,6 @@
 {
   "name": "@dashkite/genie-presets",
-  "version": "0.4.14",
+  "version": "0.5.0",
   "description": "Presets for common Genie build tasks",
   "keywords": [],
   "homepage": "https://github.com/dashkite/genie-presets#readme",
