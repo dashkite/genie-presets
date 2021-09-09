@@ -5,11 +5,11 @@ import { atlas } from "@dashkite/masonry/atlas"
 import { yaml } from "#helpers"
 import deepMerge from "deepmerge"
 
-renderDocument = ({glob, target, map}) ->
+renderDocument = ({glob, target, root, map}) ->
   do m.start [
     m.glob glob, "."
     m.read
-    m.tr [ pug.render, atlas ".", map ]
+    m.tr [ pug.render, atlas ".", root, map ]
     m.extension ".html"
     m.write "build/#{target}"
   ]
@@ -39,12 +39,12 @@ export default (t, _options) ->
     Promise.all do ->
       for target, builds of _options.targets
         Promise.all do ->
-          for { preset, glob, options, document } in builds
+          for { preset, glob, root, options, document } in builds
             target = options?.target ? "browser"
             if preset == "render"
               if document == true
                 map = options?["import-map"]
-                renderDocument { glob, target, map }
+                renderDocument { glob, target, root, map }
               else
                 renderFragment { glob, target }
             else

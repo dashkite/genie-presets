@@ -32,7 +32,7 @@
   "dependencies": {
     "@dashkite/atlas": "^0.4.0",
     "@dashkite/joy": "^0.3.11",
-    "@dashkite/masonry": "^0.11.12",
+    "@dashkite/masonry": "^0.12.0",
     "@dashkite/mimic": "^0.2.4",
     "@dashkite/writeme": "^0.2.0",
     "chalk": "^4.1.2",
