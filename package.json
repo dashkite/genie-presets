@@ -27,7 +27,7 @@
   ],
   "main": "build/node/src/index.js",
   "scripts": {
-    "test": "genie test"
+    "test": "./scripts/test"
   },
   "dependencies": {
     "@dashkite/joy": "^0.3.11",
@@ -44,7 +44,7 @@
     "morgan": "^1.10.0",
     "sort-package-json": "^1.51.0",
     "svgo": "^2.6.0",
-    "svgstore": "^3.0.0-2"
+    "svgstore": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
