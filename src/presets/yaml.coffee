@@ -3,7 +3,13 @@ import * as m from "@dashkite/masonry"
 import { yaml } from "@dashkite/masonry/yaml"
 import { json } from "@dashkite/masonry/json"
 import { yaml as yamlFile } from "#helpers"
+import YAML from "js-yaml"
 import deepMerge from "deepmerge"
+
+yamlRequire = ({ input }) ->
+  value = YAML.load input
+  _json = JSON.stringify value
+  "module.exports = #{_json}"
 
 compile =
   
@@ -16,13 +22,23 @@ compile =
       m.write "build/#{target}"
     ]
   js: ({glob, target}) ->
-    do m.start [
-      m.glob glob, "."
-      m.read
-      m.tr [ yaml, json ]
-      m.extension ".js"
-      m.write "build/#{target}"
-    ]
+    switch target
+      when "browser"
+        do m.start [
+          m.glob glob, "."
+          m.read
+          m.tr [ yaml, json ]
+          m.extension ".js"
+          m.write "build/browser"
+        ]
+      when "node"
+        do m.start [
+          m.glob glob, "."
+          m.read
+          m.tr yamlRequire
+          m.extension ".js"
+          m.write "build/node"
+        ]
 
 export default (t, options) ->
 
