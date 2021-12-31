@@ -27,7 +27,7 @@ compileFragment = ({glob, target}) ->
   do m.start [
     m.glob glob, "."
     m.read
-    m.tr pug.compile
+    m.tr pug[ target ].compile
     m.extension ".js"
     m.write "build/#{target}"
   ]
@@ -40,7 +40,7 @@ export default (t, _options) ->
       for target, builds of _options.targets
         Promise.all do ->
           for { preset, glob, root, options, document } in builds
-            target = options?.target ? "browser"
+            # target = options?.target ? "browser"
             if preset == "render"
               if document == true
                 map = options?["import-map"]
@@ -53,6 +53,7 @@ export default (t, _options) ->
   t.after "build", "pug"
 
   t.define "pug:setup", ->
+  
     cfg = await yaml.read "genie.yaml"
 
     cfg = deepMerge cfg,
