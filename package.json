@@ -31,11 +31,11 @@
   },
   "dependencies": {
     "@dashkite/joy": "^0.3.16",
-    "@dashkite/masonry": "^0.12.3",
+    "@dashkite/masonry": "0.12.4",
     "@dashkite/mimic": "^0.2.4",
     "@dashkite/writeme": "^0.2.0",
     "chalk": "^4.1.2",
-    "coffeescript": "^2.6.1",
+    "coffeescript": "2.6.x",
     "deepmerge": "^4.2.2",
     "execa": "5.x.x",
     "express": "^4.17.1",
@@ -47,8 +47,8 @@
     "svgstore": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
+    "@babel/core": "7.16.x",
+    "@babel/preset-env": "7.16.x",
     "amen": "^3.0.0",
     "babel-plugin-add-import-extension": "^1.6.0"
   }
