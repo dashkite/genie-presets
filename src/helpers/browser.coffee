@@ -36,7 +36,8 @@ export default (f) -> ->
   if options.logging == true
     app.use morgan "dev"
 
-  mountjs app, options.esm
+  mountjs app, options
+  # mountjs app, options.esm
   # mount app, options
   
   app.use express.static (options.directory ? "."), (options.static ? {})

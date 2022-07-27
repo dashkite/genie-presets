@@ -41,14 +41,15 @@ export default (t, _options) ->
         Promise.all do ->
           for { preset, glob, root, options, document } in builds
             # target = options?.target ? "browser"
-            if preset == "render"
-              if document == true
-                map = options?["import-map"]
-                renderDocument { glob, target, root, map }
-              else
-                renderFragment { glob, target }
-            else
-              compileFragment { glob, target }
+            switch preset
+              when "render"
+                if document == true
+                  map = options?["import-map"]
+                  renderDocument { glob, target, root, map }
+                else
+                  renderFragment { glob, target }
+              when "compile"
+                compileFragment { glob, target }
 
   t.after "build", "pug"
 
