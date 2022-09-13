@@ -8,6 +8,7 @@ import verify from "./presets/verify"
 import update from "./presets/update"
 import server from "./presets/server"
 import browser from "./presets/browser"
+import text from "./presets/text"
 import pug from "./presets/pug"
 import stylus from "./presets/stylus"
 import media from "./presets/media"
@@ -25,6 +26,7 @@ presets = {
   update
   server
   browser
+  text
   pug
   stylus
   media
