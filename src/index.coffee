@@ -14,6 +14,8 @@ import stylus from "./presets/stylus"
 import media from "./presets/media"
 import _presets from "./presets/presets"
 import yaml from "./presets/yaml"
+import schema from "./presets/schema"
+import kroki from "./presets/kroki"
 
 presets = {
   coffeescript
@@ -31,6 +33,8 @@ presets = {
   stylus
   media
   yaml
+  schema
+  kroki
 }
 
 export default (tasks, name, options) ->

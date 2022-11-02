@@ -34,6 +34,7 @@
     "@dashkite/masonry": "file:../masonry",
     "@dashkite/mimic": "^0.2.4",
     "@dashkite/writeme": "^0.2.0",
+    "ajv": "^8.11.0",
     "chalk": "^4.1.2",
     "coffeescript": "2.6.x",
     "deepmerge": "^4.2.2",
@@ -42,6 +43,7 @@
     "express-static": "^1.2.6",
     "js-yaml": "^4.1.0",
     "morgan": "^1.10.0",
+    "node-fetch": "^2.6.7",
     "sort-package-json": "^1.53.1",
     "svgo": "^2.8.0",
     "svgstore": "^3.0.1"
