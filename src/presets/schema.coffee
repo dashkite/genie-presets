@@ -4,7 +4,7 @@ import Ajv from "ajv/dist/2020"
 
 export default (t, { glob, auto }) ->
 
-  ajv = new Ajv
+  ajv = new Ajv allowUnionTypes: true
 
   t.define "schema:validate", M.start [
     M.glob glob, "."
