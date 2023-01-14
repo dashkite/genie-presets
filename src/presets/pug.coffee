@@ -9,7 +9,10 @@ renderDocument = ({glob, target, root, map}) ->
   do m.start [
     m.glob glob, "."
     m.read
-    m.tr [ pug.render, atlas ".", root, map ]
+    m.tr [
+      pug.render
+      atlas ".", root, map
+    ]
     m.extension ".html"
     m.write "build/#{target}"
   ]
