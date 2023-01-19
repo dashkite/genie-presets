@@ -1,25 +1,25 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@babel/core': 7.16.x
-  '@babel/preset-env': 7.16.x
+  '@babel/core': 7.16.12
+  '@babel/preset-env': 7.16.11
   '@dashkite/joy': ^0.3.16
   '@dashkite/masonry': ^0.12.5
   '@dashkite/mimic': ^0.2.4
   '@dashkite/writeme': ^0.2.0
-  ajv: ^8.11.0
+  ajv: ^8.12.0
   amen: ^3.0.0
   babel-plugin-add-import-extension: ^1.6.0
   chalk: ^4.1.2
-  coffeescript: 2.6.x
+  coffeescript: 2.6.1
   deepmerge: ^4.2.2
-  execa: 5.x.x
-  express: ^4.17.1
+  execa: 5.1.1
+  express: ^4.18.2
   express-static: ^1.2.6
   js-yaml: ^4.1.0
   morgan: ^1.10.0
-  node-fetch: ^2.6.7
-  sort-package-json: ^1.53.1
+  node-fetch: ^2.6.8
+  sort-package-json: ^1.57.0
   svgo: ^2.8.0
   svgstore: ^3.0.1
 
