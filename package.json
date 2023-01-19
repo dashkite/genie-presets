@@ -1,0 +1,57 @@
+{
+  "name": "@dashkite/genie-presets",
+  "version": "0.6.1",
+  "description": "Presets for common Genie build tasks",
+  "keywords": [],
+  "homepage": "https://github.com/dashkite/genie-presets#readme",
+  "bugs": {
+    "url": "https://github.com/dashkite/genie-presets/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dashkite/genie-presets.git"
+  },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "author": "Dan Yoder",
+  "imports": {
+    "#helpers": "./build/node/src/helpers/index.js",
+    "#helpers/*": "./build/node/src/helpers/*.js"
+  },
+  "exports": {
+    ".": "./build/node/src/index.js",
+    "./*": "./build/node/src/helpers/*.js"
+  },
+  "files": [
+    "build/node/src",
+    "ref"
+  ],
+  "main": "build/node/src/index.js",
+  "scripts": {
+    "test": "./scripts/test"
+  },
+  "dependencies": {
+    "@dashkite/joy": "^0.3.16",
+    "@dashkite/masonry": "^0.12.5",
+    "@dashkite/mimic": "^0.2.4",
+    "@dashkite/writeme": "^0.2.0",
+    "ajv": "^8.11.0",
+    "chalk": "^4.1.2",
+    "coffeescript": "2.6.x",
+    "deepmerge": "^4.2.2",
+    "execa": "5.x.x",
+    "express": "^4.17.1",
+    "express-static": "^1.2.6",
+    "js-yaml": "^4.1.0",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.7",
+    "sort-package-json": "^1.53.1",
+    "svgo": "^2.8.0",
+    "svgstore": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.16.x",
+    "@babel/preset-env": "7.16.x",
+    "amen": "^3.0.0",
+    "babel-plugin-add-import-extension": "^1.6.0"
+  }
+}
