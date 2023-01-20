@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': 7.16.12
   '@babel/preset-env': 7.16.11
   '@dashkite/joy': ^0.3.16
-  '@dashkite/masonry': ^0.12.5
+  '@dashkite/masonry': ^0.12.6
   '@dashkite/mimic': ^0.2.4
   '@dashkite/writeme': ^0.2.0
   ajv: ^8.12.0
@@ -25,7 +25,7 @@ specifiers:
 
 dependencies:
   '@dashkite/joy': 0.3.16
-  '@dashkite/masonry': 0.12.5
+  '@dashkite/masonry': 0.12.6
   '@dashkite/mimic': 0.2.4
   '@dashkite/writeme': 0.2.0
   ajv: 8.12.0
@@ -2066,8 +2066,8 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@dashkite/atlas/0.5.2:
-    resolution: {integrity: sha512-um4JjsHgIpKPzQHRCX8T8foWZozjStTzFsUMaVVTDBwT5EuhBJpxJBBcQcSrvMmukNgrJfhpoTqU+9kNS9paRg==}
+  /@dashkite/atlas/0.6.0:
+    resolution: {integrity: sha512-XOT1S0H5kS0xUDqSTaPb5tk/ZiBYi2XTuFjm2KlDyhqsT1buLrOVdxPTgGO6mAidpnrfawRK7It3I/qv64alqw==}
     dependencies:
       '@dashkite/joy': 0.3.16
       fast-glob: 3.2.12
@@ -2090,12 +2090,12 @@ packages:
       '@dashkite/joy': 0.3.16
     dev: false
 
-  /@dashkite/masonry/0.12.5:
-    resolution: {integrity: sha512-sPdMI3oUBlXV3E+6skiWVc0+iuIPJ0vmezxGbCRECoa4egK3P+O/dEqXcRWgXbtDIDbVcMgtB1rIt6q8FT2g5A==}
+  /@dashkite/masonry/0.12.6:
+    resolution: {integrity: sha512-zCcJEedv6Mg8QIuBdwKFdIGuAGWzVQMJUJCy7qzLrfVxoOmU+PlyPr2wyaxsJdU6oa+jkA2SwOMmmzxpon4CNA==}
     dependencies:
       '@babel/core': 7.20.12
       '@babel/preset-env': 7.20.2_@babel+core@7.20.12
-      '@dashkite/atlas': 0.5.2
+      '@dashkite/atlas': 0.6.0
       '@dashkite/joy': 0.3.16
       '@dashkite/katana': 0.4.8
       babel-plugin-add-import-extension: 1.6.0_@babel+core@7.20.12

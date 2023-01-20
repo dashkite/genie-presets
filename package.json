@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@dashkite/joy": "^0.3.16",
-    "@dashkite/masonry": "^0.12.5",
+    "@dashkite/masonry": "^0.12.6",
     "@dashkite/mimic": "^0.2.4",
     "@dashkite/writeme": "^0.2.0",
     "ajv": "^8.12.0",
