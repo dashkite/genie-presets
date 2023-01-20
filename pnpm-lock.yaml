@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': 7.16.12
   '@babel/preset-env': 7.16.11
   '@dashkite/joy': ^0.3.16
-  '@dashkite/masonry': ^0.12.7
+  '@dashkite/masonry': link:../masonry
   '@dashkite/mimic': ^0.2.4
   '@dashkite/writeme': ^0.2.0
   ajv: ^8.12.0
