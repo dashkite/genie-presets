@@ -27,7 +27,8 @@
   ],
   "main": "build/node/src/index.js",
   "scripts": {
-    "test": "./scripts/test"
+    "test": "./scripts/test",
+    "build": "scripts/build"
   },
   "dependencies": {
     "@dashkite/joy": "^0.3.16",
