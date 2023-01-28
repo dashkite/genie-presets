@@ -6,6 +6,7 @@ import { yaml } from "#helpers"
 import deepMerge from "deepmerge"
 
 renderDocument = ({glob, target, root, map}) ->
+  await _.sleep 1000
   do m.start [
     m.glob glob, "."
     m.read
