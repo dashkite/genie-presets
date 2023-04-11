@@ -4,8 +4,20 @@ import { pug } from "@dashkite/masonry/pug"
 import { atlas } from "@dashkite/masonry/atlas"
 import { yaml } from "#helpers"
 import deepMerge from "deepmerge"
+import * as cheerio from "cheerio"
 
-renderDocument = ({glob, target, root, map}) ->
+addEnvironment = ( env ) ->
+  ({input}) ->
+    $ = cheerio.load input
+    $ "head"
+      .append """
+        <script>
+          window.process = { env: #{JSON.stringify env} }
+        </script>
+      """
+    $.html()
+
+renderDocument = ({glob, target, root, map, env}) ->
   await _.sleep 1000
   do m.start [
     m.glob glob, "."
@@ -13,6 +25,7 @@ renderDocument = ({glob, target, root, map}) ->
     m.tr [
       pug.render
       atlas ".", root, map
+      addEnvironment env
     ]
     m.extension ".html"
     m.write "build/#{target}"
@@ -49,7 +62,8 @@ export default (t, _options) ->
               when "render"
                 if document == true
                   map = options?["import-map"]
-                  renderDocument { glob, target, root, map }
+                  env = ( t.get "sky" )?.env ? {}
+                  renderDocument { glob, target, root, map, env }
                 else
                   renderFragment { glob, target }
               when "compile"
