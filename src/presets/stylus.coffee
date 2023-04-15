@@ -1,9 +1,26 @@
 import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
 import { stylus } from "@dashkite/masonry/stylus"
-import { text } from "@dashkite/masonry/text"
+# import { text } from "@dashkite/masonry/text"
 import { yaml } from "#helpers"
 import deepMerge from "deepmerge"
+
+# possibly backport into masonry?
+# OTOH this goes away once we switch to ESM
+text = ( target ) ->
+  switch target
+    when "node"
+      ({ input }) ->
+        json = JSON.stringify input
+                .replace /\u2028/g, '\\u2028'
+                .replace /\u2029/g, '\\u2029'
+        "module.exports = #{json}"
+    else
+      ({ input }) ->
+        json = JSON.stringify input
+                .replace /\u2028/g, '\\u2028'
+                .replace /\u2029/g, '\\u2029'
+        "export default #{json}"
 
 compile =
   css: ({glob, target}) ->
@@ -18,7 +35,7 @@ compile =
     do m.start [
       m.glob glob, "."
       m.read
-      m.tr [ stylus, text ]
+      m.tr [ stylus, text target ]
       m.extension ".js"
       m.write "build/#{target}"
     ]
