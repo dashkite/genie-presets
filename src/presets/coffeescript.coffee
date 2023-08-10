@@ -1,7 +1,7 @@
 import Path from "path"
 import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
-import {coffee} from "@dashkite/masonry/coffee"
+import { coffee } from "@dashkite/masonry/coffee"
 import { yaml } from "#helpers"
 import deepMerge from "deepmerge"
 
@@ -30,6 +30,26 @@ _defaults =
   browser: presets: coffeescript: targets: browser: _builds.browser
   node: presets: coffeescript: targets: node: _builds.node
 
+import { command as exec } from "execa"
+
+run = ( action, options ) ->
+  result = await exec action, 
+    { stdout: "pipe", stderr: "pipe", shell: true, options... }
+  if result.exitCode == 0
+    result.stdout
+  else
+    throw new Error result.stderr
+
+getHash = ->
+  run "git ls-files 
+          -cmo 
+          --exclude-standard 
+          --deduplicate 
+        | tr '\\n' '\\0' 
+        | xargs -0 ls -1df 2>/dev/null 
+        | git hash-object --stdin-paths 
+        | git hash-object --stdin"
+
 export default (t, options) ->
 
   t.define "coffeescript:targets:add", (name) ->
@@ -48,23 +68,29 @@ export default (t, options) ->
 
   t.define "clean", m.rm "build"
 
-  t.define "build", "clean", ->
-    if _.isArray options.targets
-      targets = {}
-      for target in options.targets
-        targets[target] = _builds[target]
-    else
-      targets = options.targets
-    do (options = undefined) ->
-      for target, builds of targets
-        for { preset, glob, options } in builds
-          await do m.start [
-            m.glob glob, "."
-            m.read
-            m.tr coffee[preset] options ? {}
-            m.extension ".js"
-            m.write "build/#{preset}"
-          ]
+  t.define "build", ->
+    hash = await getHash()
+    db = await yaml.read ".genie/build.yaml"
+    if hash != db.hash
+      await t.run "clean"
+      db.hash = hash
+      yaml.write ".genie/build.yaml", db
+      if _.isArray options.targets
+        targets = {}
+        for target in options.targets
+          targets[target] = _builds[target]
+      else
+        targets = options.targets
+      do (options = undefined) ->
+        for target, builds of targets
+          for { preset, glob, options } in builds
+            await do m.start [
+              m.glob glob, "."
+              m.read
+              m.tr coffee[preset] options ? {}
+              m.extension ".js"
+              m.write "build/#{preset}"
+            ]
 
   t.define "dev:test", ->
     require Path.join process.cwd(), "test"

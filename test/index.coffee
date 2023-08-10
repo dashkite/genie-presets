@@ -1,5 +1,5 @@
-import assert from "assert"
-import {print, test} from "amen"
+import assert from "@dashkite/assert"
+import {print, test} from "@dashkite/amen"
 import * as _ from "@dashkite/joy"
 # TODO /index must be explicit
 import preset from "../src/index"
