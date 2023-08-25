@@ -1,3 +1,4 @@
+import Path from "node:path"
 import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
 import { pug } from "@dashkite/masonry/pug"
@@ -17,14 +18,14 @@ addEnvironment = ( env ) ->
       """
     $.html()
 
-renderDocument = ({glob, target, root, map, env}) ->
+renderDocument = ({glob, target, entries, map, env}) ->
   await _.sleep 1000
   do m.start [
     m.glob glob, "."
     m.read
     m.tr [
       pug.render
-      atlas ".", root, map
+      atlas entries, map
       addEnvironment env
     ]
     m.extension ".html"
@@ -56,14 +57,13 @@ export default (t, _options) ->
     Promise.all do ->
       for target, builds of _options.targets
         Promise.all do ->
-          for { preset, glob, root, options, document } in builds
+          for { preset, glob, entries, map, document } in builds
             # target = options?.target ? "browser"
             switch preset
               when "render"
                 if document == true
-                  map = options?["import-map"]
                   env = ( t.get "sky" )?.env ? {}
-                  renderDocument { glob, target, root, map, env }
+                  renderDocument { glob, target, entries, map, env }
                 else
                   renderFragment { glob, target }
               when "compile"
