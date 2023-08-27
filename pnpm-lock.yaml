@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@dashkite/genie-files':
+    specifier: link:../genie-files
+    version: link:../genie-files
   '@dashkite/joy':
     specifier: ^0.3.16
     version: 0.3.16

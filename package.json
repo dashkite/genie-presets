@@ -31,6 +31,7 @@
     "build": "scripts/build"
   },
   "dependencies": {
+    "@dashkite/genie-files": "link:../genie-files",
     "@dashkite/joy": "^0.3.16",
     "@dashkite/masonry": "link:../masonry",
     "@dashkite/mimic": "^0.2.4",

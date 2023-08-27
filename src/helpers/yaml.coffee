@@ -12,7 +12,6 @@ read = (path) ->
     catch
       {}
 
-
 write = (path, updated) ->
   unless _.equal cache[path], updated
     cache[path] = updated

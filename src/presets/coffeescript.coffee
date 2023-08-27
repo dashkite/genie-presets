@@ -2,6 +2,7 @@ import Path from "path"
 import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
 import { coffee } from "@dashkite/masonry/coffee"
+import { File as F } from "@dashkite/genie-files"
 import { yaml } from "#helpers"
 import deepMerge from "deepmerge"
 
@@ -69,28 +70,23 @@ export default (t, options) ->
   t.define "clean", m.rm "build"
 
   t.define "build", ->
-    hash = await getHash()
-    db = await yaml.read ".genie/build.yaml"
-    if hash != db.hash
-      await t.run "clean"
-      db.hash = hash
-      yaml.write ".genie/build.yaml", db
-      if _.isArray options.targets
-        targets = {}
-        for target in options.targets
-          targets[target] = _builds[target]
-      else
-        targets = options.targets
-      do (options = undefined) ->
-        for target, builds of targets
-          for { preset, glob, options } in builds
-            await do m.start [
-              m.glob glob, "."
-              m.read
-              m.tr coffee[preset] options ? {}
-              m.extension ".js"
-              m.write "build/#{preset}"
-            ]
+    if _.isArray options.targets
+      targets = {}
+      for target in options.targets
+        targets[target] = _builds[target]
+    else
+      targets = options.targets
+    do (options = undefined) ->
+      for target, builds of targets
+        for { preset, glob, options } in builds
+          await do m.start [
+            m.glob glob, "."
+            m.read
+            F.changed
+            m.tr coffee[preset] options ? {}
+            m.extension ".js"
+            m.write "build/#{preset}"
+          ]
 
   t.define "dev:test", ->
     require Path.join process.cwd(), "test"
