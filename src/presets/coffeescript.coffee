@@ -69,7 +69,7 @@ export default (t, options) ->
 
   t.define "clean", m.rm "build"
 
-  t.define "build", ->
+  t.on "build", ->
     if _.isArray options.targets
       targets = {}
       for target in options.targets
