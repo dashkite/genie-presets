@@ -2,7 +2,7 @@ import Path from "path"
 import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
 import { coffee } from "@dashkite/masonry/coffee"
-import { File as F } from "@dashkite/genie-files"
+import { File as F, Files as P } from "@dashkite/genie-files"
 import { yaml } from "#helpers"
 import deepMerge from "deepmerge"
 
@@ -69,24 +69,14 @@ export default (t, options) ->
 
   t.define "clean", m.rm "build"
 
-  t.on "build", ->
-    if _.isArray options.targets
-      targets = {}
-      for target in options.targets
-        targets[target] = _builds[target]
-    else
-      targets = options.targets
-    do (options = undefined) ->
-      for target, builds of targets
-        for { preset, glob, options } in builds
-          await do m.start [
-            m.glob glob, "."
-            m.read
-            F.changed
-            m.tr coffee[preset] options ? {}
-            m.extension ".js"
-            m.write "build/#{preset}"
-          ]
+  t.on "build", m.start [
+    P.targets options.targets
+    m.read
+    F.changed
+    m.tr coffee
+    m.extension ".js"
+    m.write "build/${ build.target }"
+  ]
 
   t.define "dev:test", ->
     require Path.join process.cwd(), "test"

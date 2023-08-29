@@ -2,7 +2,7 @@ import Path from "node:path"
 import * as _ from "@dashkite/joy"
 import * as m from "@dashkite/masonry"
 import { pug } from "@dashkite/masonry/pug"
-import { atlas } from "@dashkite/masonry/atlas"
+# import { atlas } from "@dashkite/masonry/atlas"
 import { yaml } from "#helpers"
 import deepMerge from "deepmerge"
 import * as cheerio from "cheerio"
@@ -19,6 +19,7 @@ addEnvironment = ( env ) ->
     $.html()
 
 renderDocument = ({glob, target, entries, map, env}) ->
+  { atlas } = await import( "@dashkite/masonry/atlas" )
   await _.sleep 1000
   do m.start [
     m.glob glob, "."
