@@ -70,7 +70,7 @@ export default (t, options) ->
     F.changed
     m.tr coffee
     m.extension ".js"
-    m.write "build/${ build.target }"
+    F.write "build/${ build.target }"
   ]
 
   t.define "dev:test", ->
