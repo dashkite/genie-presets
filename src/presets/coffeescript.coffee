@@ -41,16 +41,6 @@ run = ( action, options ) ->
   else
     throw new Error result.stderr
 
-getHash = ->
-  run "git ls-files 
-          -cmo 
-          --exclude-standard 
-          --deduplicate 
-        | tr '\\n' '\\0' 
-        | xargs -0 ls -1df 2>/dev/null 
-        | git hash-object --stdin-paths 
-        | git hash-object --stdin"
-
 export default (t, options) ->
 
   t.define "coffeescript:targets:add", (name) ->
@@ -67,9 +57,14 @@ export default (t, options) ->
       delete cfg.presets.coffeescript.targets[name]
       yaml.write "genie.yaml", cfg
 
-  t.define "clean", m.rm "build"
+  t.define "clean", _.flow [
+    m.rm "build"
+    m.rm ".genie"
+  ]
 
-  t.on "build", m.start [
+  t.on "build", "coffee"
+  
+  t.define "coffee", m.start [
     P.targets options.targets
     m.read
     F.changed
