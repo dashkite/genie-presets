@@ -55,6 +55,8 @@
     "@babel/core": "7.16.12",
     "@babel/preset-env": "7.16.11",
     "@dashkite/amen": "^0.2.2",
+    "@dashkite/genie": "link:../genie",
+    "@dashkite/genie-presets": "link:",
     "babel-plugin-add-import-extension": "^1.6.0"
   }
 }

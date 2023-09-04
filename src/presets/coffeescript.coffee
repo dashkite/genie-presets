@@ -63,7 +63,7 @@ export default (t, options) ->
   ]
 
   t.on "build", "coffee"
-  
+
   t.define "coffee", m.start [
     P.targets options.targets
     m.read
